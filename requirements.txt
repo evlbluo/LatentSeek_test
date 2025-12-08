@@ -10,3 +10,5 @@ torch==2.9.0+cu126
 tqdm==4.67.1
 transformers==4.57.2
 word2number==1.1
+
+antlr4-python3-runtime==4.11.1
