@@ -11,7 +11,7 @@ import argparse
 import numpy as np
 import random
 
-
+# This is the main file
 def parse_args():
     parser = argparse.ArgumentParser(description="Evaluate the model")
     parser.add_argument("--dataset", type=str, default="openai/gsm8k", help="Dataset to evaluate")
