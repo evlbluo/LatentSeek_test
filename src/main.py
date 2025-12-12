@@ -14,6 +14,9 @@ import random
 # This is the main file
 def parse_args():
     parser = argparse.ArgumentParser(description="Evaluate the model")
+    # It creates the tool (parser) that will interpret your terminal commands 
+    # and sets the description "Evaluate the model" to appear if a user asks for help.
+  
     parser.add_argument("--dataset", type=str, default="openai/gsm8k", help="Dataset to evaluate")
     parser.add_argument("--model_name_or_path", type=str, help="Path to the model")
     parser.add_argument("--output_dir", type=str, help="Path to the output directory")
@@ -46,18 +49,28 @@ def parse_args():
 
 def set_seed(seed):
     '''
-    Set random seed for reproducibility
+    Set random seed for reproducibility, This function is designed to make your experiment reproducible. 
+    It ensures that every time you run your code, the "random" events happen in the exact same order.
 
     Args:
         seed: random seed
     '''
     torch.manual_seed(seed)
+    # freezes the random generator for PyTorch (CPU) operations.
     torch.cuda.manual_seed_all(seed)
+    # Freezes the random generator for the GPU (Graphics Card).
     torch.backends.cudnn.deterministic = True
+    # Tells the GPU library (CuDNN) to only use algorithms that are guaranteed to give the 
+    # exact same result every time.
     torch.backends.cudnn.benchmark = False
+    # Normally, PyTorch runs a few test runs to find the fastest algorithm for your specific hardware.
+    # We turn this off because picking different algorithms can introduce tiny variations in the results.
     os.environ['PYTHONHASHSEED'] = str(seed)
+    # Freezes how Python handles basic structures like dictionaries and sets
     np.random.seed(seed)
+    # Freezes the NumPy library (used for scientific math).
     random.seed(seed)
+    # Freezes Python's built-in Standard Library random generator.
 
 
 # evaluate function 
@@ -237,6 +250,9 @@ def main(args):
 
 
 if __name__ == "__main__":
+# This is the standard entry point. It says, "If this file is being run as a script 
+# (not just imported as a library), do the following..."
+
     args = parse_args()
     for arg in vars(args):
         print(f"-- {arg}: {getattr(args, arg)}")
